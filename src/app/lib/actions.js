@@ -1,5 +1,19 @@
 import { revalidatePath } from "next/cache";
 
+
+export const createUser= async(formData)=>{
+    'use server';
+    const newUser = Object.fromEntries(formData.entries());
+    const res = await fetch('http://localhost:5000/users',{
+        method:'POST',
+        headers:{
+    "Content-type":"application/json",
+        },
+        body: JSON.stringify(newUser)
+    })
+    const data= await res.json();
+    return data;
+}
 export const deleteUser = async(userId)=>{
     'use server';
 
